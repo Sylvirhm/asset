@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+                * {
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+        }
+
+        body {
+        background: #f4fbff;
+        padding: 40px;
+        }
+
+        .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+        }
+
+        .card {
+        position: relative;
+        background: #ffffff;
+        border-radius: 16px;
+        padding: 20px;
+        text-align: center;
+        overflow: hidden;
+        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+        transition: transform .3s ease;
+        }
+
+        .card:hover {
+        transform: translateY(-6px);
+        }
+
+        .card img {
+        max-width: 100%;
+        height: 120px;
+        object-fit: contain;
+        margin-bottom: 16px;
+        }
+
+        .card-content h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: #1f2937;
+        }
+
+        /* Hover Overlay */
+        .card-hover {
+        position: absolute;
+        inset: 0;
+        background: rgba(14, 165, 233, 0.95);
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 20px;
+        opacity: 0;
+        transition: opacity .3s ease;
+        }
+
+        .card:hover .card-hover {
+        opacity: 1;
+        }
+
+        .card-hover p {
+        font-size: 14px;
+        line-height: 1.6;
+        }
+
+        .card-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="card-grid">
+
+  <div class="card">
+    <img src="https://static.wixstatic.com/media/135511_e1c31d8e380043969ad10950e27b6ce3~mv2.png/v1/fill/w_1016,h_512,al_c,q_90,usm_0.66_1.00_0.01,enc_avif,quality_auto/Salinan%20dari%20fff.png" alt="Power Supply">
+    <div class="card-content">
+      <h3>Power supply</h3>
+    </div>
+    <div class="card-hover">
+      <p>Sumber daya listrik untuk menopang seluruh sistem monitoring.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://static.wixstatic.com/media/135511_e2f17bb75d834206a0c4e88441d47c9e~mv2.png/v1/fill/w_170,h_170,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/Proteus.png" alt="Sensor">
+    <div class="card-content">
+      <h3>Sensor</h3>
+    </div>
+    <div class="card-hover">
+      <p>Berfungsi membaca parameter lingkungan secara real-time.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://static.wixstatic.com/media/135511_31a050f4d0584ffba8b96a4a4989bb9d~mv2.png/v1/fill/w_228,h_188,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/135511_31a050f4d0584ffba8b96a4a4989bb9d~mv2.png" alt="Data Logger">
+    <div class="card-content">
+      <h3>Data logger</h3>
+    </div>
+    <div class="card-hover">
+      <p>Menyimpan dan mengirim data hasil pengukuran.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://static.wixstatic.com/media/135511_63096fde15ef49dbb91843607d4db5dd~mv2.png/v1/fill/w_366,h_366,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/135511_63096fde15ef49dbb91843607d4db5dd~mv2.png" alt="Panel Box">
+    <div class="card-content">
+      <h3>Panel Box</h3>
+    </div>
+    <div class="card-hover">
+      <p>Pelindung perangkat elektronik dari cuaca dan gangguan luar.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="panel-box.jpg" alt="Panel Box">
+    <div class="card-content">
+      <h3>Running Text</h3>
+    </div>
+    <div class="card-hover">
+      <p>Pelindung perangkat elektronik dari cuaca dan gangguan luar.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="https://static.wixstatic.com/media/135511_e9d8867682174f7387de8b98d6c7b5c3~mv2.png/v1/fill/w_464,h_464,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/mini%20pc.png" alt="Panel Box">
+    <div class="card-content">
+      <h3>Mini PC</h3>
+    </div>
+    <div class="card-hover">
+      <p>Pelindung perangkat elektronik dari cuaca dan gangguan luar.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="panel-box.jpg" alt="Panel Box">
+    <div class="card-content">
+      <h3>Control Panel</h3>
+    </div>
+    <div class="card-hover">
+      <p>Pelindung perangkat elektronik dari cuaca dan gangguan luar.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <img src="panel-box.jpg" alt="Panel Box">
+    <div class="card-content">
+      <h3>Pompa Air</h3>
+    </div>
+    <div class="card-hover">
+      <p>Pelindung perangkat elektronik dari cuaca dan gangguan luar.</p>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
