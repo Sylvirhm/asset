@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="id" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistics Counter</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&amp;display=swap" rel="stylesheet">
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    .counter-number {
+      font-weight: 700;
+      line-height: 1.2;
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div id="app-wrapper" class="w-full h-full overflow-auto" style="background: transparent;">
+   <div class="container mx-auto px-4 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto"><!-- Counter 1 -->
+     <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform transition-all duration-300 hover:scale-105">
+      <div id="counter-1" class="counter-number text-5xl mb-4" style="color: #006bb1;">
+       0+
+      </div>
+      <p id="title-1" class="text-gray-700 text-base font-medium">Partner Kepercayaan Berbagai Industri</p>
+     </div><!-- Counter 2 -->
+     <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform transition-all duration-300 hover:scale-105">
+      <div id="counter-2" class="counter-number text-5xl mb-4" style="color: #006bb1;">
+       0%
+      </div>
+      <p id="title-2" class="text-gray-700 text-base font-medium">Pelanggan Merekomendasikan Kami</p>
+     </div><!-- Counter 3 -->
+     <div class="bg-white rounded-2xl shadow-xl p-8 text-center transform transition-all duration-300 hover:scale-105">
+      <div id="counter-3" class="counter-number text-5xl mb-4" style="color: #006bb1;">
+       0+
+      </div>
+      <p id="title-3" class="text-gray-700 text-base font-medium">Tahun Menyediakan Solusi Terbaik</p>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      counter_1_number: "1500",
+      counter_1_suffix: "+",
+      counter_1_title: "Partner Kepercayaan Berbagai Industri",
+      counter_2_number: "97",
+      counter_2_suffix: "%",
+      counter_2_title: "Pelanggan Merekomendasikan Kami",
+      counter_3_number: "9",
+      counter_3_suffix: "+",
+      counter_3_title: "Tahun Menyediakan Solusi Terbaik",
+      primary_color: "#006bb1",
+      card_background: "#ffffff",
+      text_color: "#374151",
+      font_family: "Inter",
+      font_size: 16
+    };
+
+    let hasAnimated = false;
+
+    function animateCounter(element, target, suffix, duration = 2000) {
+      const start = 0;
+      const increment = target / (duration / 16);
+      let current = start;
+
+      const timer = setInterval(() => {
+        current += increment;
+        if (current >= target) {
+          current = target;
+          clearInterval(timer);
+        }
+        element.textContent = Math.floor(current) + suffix;
+      }, 16);
+    }
+
+    async function onConfigChange(config) {
+      const customFont = config.font_family || defaultConfig.font_family;
+      const baseSize = config.font_size || defaultConfig.font_size;
+      const primaryColor = config.primary_color || defaultConfig.primary_color;
+      const cardBg = config.card_background || defaultConfig.card_background;
+      const textColor = config.text_color || defaultConfig.text_color;
+
+      const cards = document.querySelectorAll('.bg-white');
+      cards.forEach(card => card.style.backgroundColor = cardBg);
+
+      const counterNumbers = document.querySelectorAll('.counter-number');
+      counterNumbers.forEach(counter => {
+        counter.style.color = primaryColor;
+        counter.style.fontSize = `${baseSize * 3.125}px`;
+        counter.style.fontFamily = `${customFont}, sans-serif`;
+      });
+
+      const titles = document.querySelectorAll('p[id^="title-"]');
+      titles.forEach(title => {
+        title.style.color = textColor;
+        title.style.fontSize = `${baseSize}px`;
+        title.style.fontFamily = `${customFont}, sans-serif`;
+      });
+
+      // Update content
+      document.getElementById('title-1').textContent = config.counter_1_title || defaultConfig.counter_1_title;
+      document.getElementById('title-2').textContent = config.counter_2_title || defaultConfig.counter_2_title;
+      document.getElementById('title-3').textContent = config.counter_3_title || defaultConfig.counter_3_title;
+
+      // Animate counters only once
+      if (!hasAnimated) {
+        hasAnimated = true;
+        const counter1Target = parseInt(config.counter_1_number || defaultConfig.counter_1_number);
+        const counter2Target = parseInt(config.counter_2_number || defaultConfig.counter_2_number);
+        const counter3Target = parseInt(config.counter_3_number || defaultConfig.counter_3_number);
+
+        animateCounter(document.getElementById('counter-1'), counter1Target, config.counter_1_suffix || defaultConfig.counter_1_suffix);
+        animateCounter(document.getElementById('counter-2'), counter2Target, config.counter_2_suffix || defaultConfig.counter_2_suffix);
+        animateCounter(document.getElementById('counter-3'), counter3Target, config.counter_3_suffix || defaultConfig.counter_3_suffix);
+      } else {
+        // Update without animation
+        document.getElementById('counter-1').textContent = (config.counter_1_number || defaultConfig.counter_1_number) + (config.counter_1_suffix || defaultConfig.counter_1_suffix);
+        document.getElementById('counter-2').textContent = (config.counter_2_number || defaultConfig.counter_2_number) + (config.counter_2_suffix || defaultConfig.counter_2_suffix);
+        document.getElementById('counter-3').textContent = (config.counter_3_number || defaultConfig.counter_3_number) + (config.counter_3_suffix || defaultConfig.counter_3_suffix);
+      }
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.primary_color || defaultConfig.primary_color,
+            set: (value) => {
+              config.primary_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ primary_color: value });
+            }
+          },
+          {
+            get: () => config.card_background || defaultConfig.card_background,
+            set: (value) => {
+              config.card_background = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ card_background: value });
+            }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => {
+              config.text_color = value;
+              if (window.elementSdk) window.elementSdk.setConfig({ text_color: value });
+            }
+          }
+        ],
+        borderables: [],
+        fontEditable: {
+          get: () => config.font_family || defaultConfig.font_family,
+          set: (value) => {
+            config.font_family = value;
+            if (window.elementSdk) {
+              window.elementSdk.setConfig({ font_family: value });
+            }
+          }
+        },
+        fontSizeable: {
+          get: () => config.font_size || defaultConfig.font_size,
+          set: (value) => {
+            config.font_size = value;
+            if (window.elementSdk) {
+              window.elementSdk.setConfig({ font_size: value });
+            }
+          }
+        }
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ["counter_1_number", config.counter_1_number || defaultConfig.counter_1_number],
+        ["counter_1_suffix", config.counter_1_suffix || defaultConfig.counter_1_suffix],
+        ["counter_1_title", config.counter_1_title || defaultConfig.counter_1_title],
+        ["counter_2_number", config.counter_2_number || defaultConfig.counter_2_number],
+        ["counter_2_suffix", config.counter_2_suffix || defaultConfig.counter_2_suffix],
+        ["counter_2_title", config.counter_2_title || defaultConfig.counter_2_title],
+        ["counter_3_number", config.counter_3_number || defaultConfig.counter_3_number],
+        ["counter_3_suffix", config.counter_3_suffix || defaultConfig.counter_3_suffix],
+        ["counter_3_title", config.counter_3_title || defaultConfig.counter_3_title]
+      ]);
+    }
+
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c86d1acd43aa2fd',t:'MTc3MDE3Mjk5MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
